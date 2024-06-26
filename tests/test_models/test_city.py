@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-This define unittests for City class (models/city.py)
+This define unittests for City class (models/city.py).
 """
 import unittest
 from models.base_model import BaseModel

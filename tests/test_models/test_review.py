@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-This model defines unittests for Review class (models/review.py)
+This model defines unittests for Review class (models/review.py).
 """
 import unittest
 from models.base_model import BaseModel
