@@ -1,69 +1,76 @@
 #!/usr/bin/python3
-""" """
-from tests.test_models.test_base_model import test_basemodel
+"""
+This model defines unittests for Place class (models/place.py)
+"""
+import unittest
+from models.base_model import BaseModel
 from models.place import Place
+from models import storage
+import datetime
+from time import sleep
+import os
 
 
-class test_Place(test_basemodel):
-    """ """
+class TestPlace(unittest.TestCase):
+    """Testing instantiation of Place class."""
 
-    def __init__(self, *args, **kwargs):
-        """ """
-        super().__init__(*args, **kwargs)
-        self.name = "Place"
-        self.value = Place
+    # Testing type
+    def test_type(self):
+        pl = Place()
+        self.assertEqual(Place, type(pl))
 
-    def test_city_id(self):
-        """ """
-        new = self.value()
-        self.assertEqual(type(new.city_id), str)
+    def test_type_public_attr(self):
+        pl = Place()
+        self.assertEqual(str, type(pl.id))
+        self.assertEqual(str, type(pl.city_id))
+        self.assertEqual(str, type(pl.user_id))
+        self.assertEqual(str, type(pl.name))
+        self.assertEqual(str, type(pl.description))
+        self.assertEqual(int, type(pl.number_rooms))
+        self.assertEqual(int, type(pl.number_bathrooms))
+        self.assertEqual(int, type(pl.max_guest))
+        self.assertEqual(int, type(pl.price_by_night))
+        self.assertEqual(float, type(pl.latitude))
+        self.assertEqual(float, type(pl.longitude))
+        self.assertEqual(list, type(pl.amenity_ids))
 
-    def test_user_id(self):
-        """ """
-        new = self.value()
-        self.assertEqual(type(new.user_id), str)
+    def test_type_created_at(self):
+        pl = Place()
+        self.assertEqual(datetime.datetime, type(pl.created_at))
 
-    def test_name(self):
-        """ """
-        new = self.value()
-        self.assertEqual(type(new.name), str)
+    def test_type_update_at(self):
+        pl = Place()
+        self.assertEqual(datetime.datetime, type(pl.updated_at))
 
-    def test_description(self):
-        """ """
-        new = self.value()
-        self.assertEqual(type(new.description), str)
+    # Testing id
+    def test_unique_id(self):
+        pl1 = Place()
+        pl2 = Place()
+        self.assertNotEqual(pl1.id, pl2.id)
 
-    def test_number_rooms(self):
-        """ """
-        new = self.value()
-        self.assertEqual(type(new.number_rooms), int)
+    # Testing dates
+    def test_consecutive_created_at(self):
+        pl1 = Place()
+        sleep(0.02)
+        pl2 = Place()
+        self.assertLess(pl1.created_at, pl2.created_at)
 
-    def test_number_bathrooms(self):
-        """ """
-        new = self.value()
-        self.assertEqual(type(new.number_bathrooms), int)
+    def test_consecutive_updated_at(self):
+        pl1 = Place()
+        sleep(0.02)
+        pl2 = Place()
+        self.assertLess(pl1.updated_at, pl2.updated_at)
 
-    def test_max_guest(self):
-        """ """
-        new = self.value()
-        self.assertEqual(type(new.max_guest), int)
+    # Testing new attributes creation
+    def test_new_attr(self):
+        pl = Place()
+        pl.name = "Holberton"
+        pl.email = "janesmith@gmail.com"
+        self.assertTrue(hasattr(pl, "name") and hasattr(pl, "email"))
 
-    def test_price_by_night(self):
-        """ """
-        new = self.value()
-        self.assertEqual(type(new.price_by_night), int)
-
-    def test_latitude(self):
-        """ """
-        new = self.value()
-        self.assertEqual(type(new.latitude), float)
-
-    def test_longitude(self):
-        """ """
-        new = self.value()
-        self.assertEqual(type(new.latitude), float)
-
-    def test_amenity_ids(self):
-        """ """
-        new = self.value()
-        self.assertEqual(type(new.amenity_ids), list)
+    # Test update storage variable
+    def test_bm_updated_storage(self):
+        pl = Place()
+        pl_key = "Place." + pl.id
+        keys = storage.all().keys()
+        self.assertTrue(pl_key in keys)
