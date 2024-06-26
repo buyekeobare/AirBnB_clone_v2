@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-This model defines unittests for Place class (models/place.py)
+This model defines unittests for Place class (models/place.py).
 """
 import unittest
 from models.base_model import BaseModel

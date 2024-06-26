@@ -1,6 +1,6 @@
 i#!/usr/bin/python3
 """
-This is defines unittests for BaseModel class (models/base_model.py)
+This is defines unittests for BaseModel class (models/base_model.py).
 """
 import unittest
 from models.base_model import BaseModel
