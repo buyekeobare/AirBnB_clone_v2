@@ -1,11 +1,11 @@
-#!/usr/bin/python3
-"""This module defines a base class for all models in our hbnb clone"""
+ii#!/usr/bin/python3
+"""This module is the base class for all models in our Airbnbclone"""
 import uuid
 from datetime import datetime
 
 
 class BaseModel:
-    """A base class for all hbnb models"""
+    """Base class for all airbnb models"""
     def __init__(self, *args, **kwargs):
         """Instatntiates a new model"""
         if not kwargs:
@@ -23,12 +23,12 @@ class BaseModel:
             self.__dict__.update(kwargs)
 
     def __str__(self):
-        """Returns a string representation of the instance"""
+        """Returns a str representation of an instance"""
         cls = (str(type(self)).split('.')[-1]).split('\'')[0]
         return '[{}] ({}) {}'.format(cls, self.id, self.__dict__)
 
     def save(self):
-        """Updates updated_at with current time when instance is changed"""
+        """Updates updated_at with curr time when instance is changed"""
         from models import storage
         self.updated_at = datetime.now()
         storage.save()
