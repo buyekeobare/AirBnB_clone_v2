@@ -1,6 +1,6 @@
 I#!/usr/bin/python3
 """
-This model defines unittests for State class (models/state.py)
+This model defines unittests for State class (models/state.py).
 """
 import unittest
 from models.base_model import BaseModel
