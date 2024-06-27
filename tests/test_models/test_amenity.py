@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-This deefines unittests for Amenity class (models/amenity.py)
+This deefines unittests for Amenity class (models/amenity.py).
 """
 import unittest
 from models.base_model import BaseModel
