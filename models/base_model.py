@@ -1,5 +1,5 @@
-ii#!/usr/bin/python3
-"""This module is the base class for all models in our Airbnbclone"""
+#!/usr/bin/python3
+"""This module is the base class for all models in our Airbnbclone."""
 import uuid
 from datetime import datetime
 
