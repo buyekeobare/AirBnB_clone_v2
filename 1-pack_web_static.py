@@ -10,16 +10,15 @@ from time import strftime
 
 def do_pack():
     """Generate a tar gzipped archive of the directory web_static"""
-    current = datetime.current().strftime("%Y%m%d%H%M%S")
-    archive = "versions/web_static_{}.tgz".format(current)
 
-    local("mkdir -p versions")
+     filename = strftime("%Y%m%d%H%M%S")
+    try:
+        local("mkdir -p versions")
+        local("tar -czvf versions/web_static_{}.tgz web_static/"
+              .format(filename))
 
-    archived = local("tar -cvzf {} web_static".format(archive))
+        return "versions/web_static_{}.tgz".format(filename)
 
-    if archived.return_code != 0:
+    except Exception as e:
         return None
-    else:
-        return archive
-
 
