@@ -116,37 +116,25 @@ class HBNBCommand(cmd.Cmd):
     def do_create(self, args):
         """ Create an object of any class"""
         args = args.split()
-        print(args)
         if not args:
             print("** class name missing **")
             return
         elif args[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        try:
-            new_instance = HBNBCommand.classes[args[0]]()
-            for arg in args[1:]:
-                if '=' in arg:
-                    key, value = arg.split('=', 1)
-                    if value.startswith('"') and value.endswith('"'):
-                        value = value.strip('"').replace('_', ' ')
-                    elif "." in value:
-                        try:
-                            value = float(value)
-                        except ValueError:
-                            continue
-                    else:
-                        try:
-                            value = int(value)
-                        except ValueError:
-                            continue
-                    setattr(new_instance, key, value)
-            storage.new(new_instance)
-            print(new_instance.id)
-            storage.save()
-        except TypeError as e:
-            print("** class {} doesn't have paramenter(s): {}**".format(
-                new), ', '.join(args[1:]))
+        params = {}
+        for i in range(1, len(args)):
+            param = args[i].split('=')
+            key = param[0]
+            value = param[1].replace('"', '\"').replace('_', ' ')
+
+            value = eval(value)
+            params[key] = value
+
+        new_instance = HBNBCommand.classes[args[0]](**params)
+        storage.save()
+        print(new_instance.id)
+        storage.save()
 
     def help_create(self):
         """ Help information for the create method """
@@ -305,7 +293,7 @@ class HBNBCommand(cmd.Cmd):
             if not att_name and args[0] != ' ':
                 att_name = args[0]
             # check for quoted val arg
-            if args[2] and args[2][0] != '\"':
+            if args[2] and args[2][0] == '\"':
                 att_val = args[2][1:args[2].find('\"', 1)]
 
             # if att_val was not quoted arg
